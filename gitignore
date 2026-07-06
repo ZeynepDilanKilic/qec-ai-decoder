@@ -1,0 +1,32 @@
+# ---- Python ----
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ipynb_checkpoints/
+
+# ---- Virtual environments ----
+.venv/
+venv/
+qec-venv*/
+
+# ---- Generated datasets & model checkpoints ----
+# Large and fully regenerable from configs + seeds (see README "Reproducibility").
+data*/
+*.npz
+*.pt
+
+# ---- SLURM & run logs ----
+logs/
+slurm-*.out
+*.err
+
+# Small result artifacts (results/*.csv, *.json, *.png) ARE tracked on purpose,
+# so readers can see the paper's numbers without rerunning the pipeline.
+# To exclude them instead, uncomment:
+# results/
+
+# ---- OS / editor ----
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
