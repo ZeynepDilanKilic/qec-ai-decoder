@@ -1,0 +1,29 @@
+cff-version: 1.2.0
+message: "If you use this software, please cite it using the metadata below."
+type: software
+title: "qec-ai-decoder: Transformer-based surface-code decoding with a dual-baseline MWPM comparison protocol"
+authors:
+  - family-names: "Kılıç"
+    given-names: "Zeynep Dilan"
+    affiliation: "Hacettepe University"
+version: "1.0.0"
+date-released: "2026-07-06"
+repository-code: "https://github.com/ZeynepDilanKilic/qec-ai-decoder"
+license: MIT
+keywords:
+  - quantum error correction
+  - surface code
+  - stabilizer codes
+  - transformer
+  - neural decoder
+  - MWPM
+  - stim
+  - pymatching
+preferred-citation:
+  type: project
+  title: "Data Efficiency Bottlenecks in Transformer-Based Surface-Code Decoders: A Systematic Comparison with MWPM"
+  authors:
+    - family-names: "Kılıç"
+      given-names: "Zeynep Dilan"
+      affiliation: "Hacettepe University"
+  year: 2026

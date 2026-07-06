@@ -1,0 +1,24 @@
+data:
+  dir: "data_smoke"
+  distances: [3, 5]
+  noise_levels: [0.003, 0.01, 0.03]
+  num_train: 20000
+  num_val: 4000
+  num_test: 10000
+model:
+  type: "mlp"
+  hidden_dims: [128, 128]
+  dropout: 0.1
+  conv_channels: [32, 64]
+train:
+  epochs: 6
+  batch_size: 512
+  lr: 0.001
+  weight_decay: 0.00001
+  patience: 4
+  pos_weight: "auto"
+  num_workers: 2
+  seed: 42
+eval:
+  run_mwpm_baseline: true
+  results_dir: "results_smoke"

@@ -1,0 +1,35 @@
+data:
+  dir: "data_correlated"
+  distances: [3, 5]
+  # (p_iid, p_corr) ciftleri:
+  # - kontrol: 0.005, 0.000  (i.i.d. baseline)
+  # - hafif:   0.005, 0.005
+  # - orta:    0.005, 0.010
+  # - guclu:   0.005, 0.020
+  noise_pairs:
+    - [0.005, 0.000]
+    - [0.005, 0.005]
+    - [0.005, 0.010]
+    - [0.005, 0.020]
+  num_train: 100000
+  num_val: 15000
+  num_test: 30000
+model:
+  type: "transformer"
+  d_model: 128
+  nhead: 8
+  num_layers: 4
+  dim_feedforward: 256
+  dropout: 0.1
+train:
+  epochs: 40
+  batch_size: 256
+  lr: 0.0005
+  weight_decay: 0.01
+  patience: 10
+  pos_weight: "auto"
+  num_workers: 2
+  seed: 42
+eval:
+  run_mwpm_baseline: true
+  results_dir: "results_correlated"

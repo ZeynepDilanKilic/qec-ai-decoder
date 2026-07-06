@@ -1,0 +1,57 @@
+# =====================================================================
+# config.yaml  --  QEC AI Decoder projesinin merkezi ayar dosyasi
+# =====================================================================
+# Tum scriptler (veri uretimi, egitim, degerlendirme) ayarlari buradan
+# okur. Boylece bir deneyi tekrar etmek icin sadece bu dosyayi
+# saklamak/paylasmak yeterli olur (tekrarlanabilirlik).
+#
+# TRUBA notu: yollari mutlak yol vermek yerine projeye gore goreli
+# tutun; SLURM betikleri scripti proje kokunden calistirir.
+# =====================================================================
+
+# ----------------------- VERI URETIMI --------------------------------
+data:
+  dir: "data"                      # .npz dosyalarinin yazilacagi dizin
+  # Kod mesafeleri: kucuk d hizli egitim + esik davranisini gormek icin
+  # birden fazla d sart. d buyudukce esik altinda hata orani DUSMELI.
+  distances: [3, 5, 7]
+  # Gurultu seviyeleri (fiziksel hata olasiligi p). Yuzey kodu esigi
+  # ~%1 oldugundan esigin altini ve ustunu kapsayacak sekilde secildi.
+  noise_levels: [0.001, 0.003, 0.005, 0.008, 0.01, 0.015, 0.02, 0.03, 0.05]
+  # Shot sayilari. Dusuk p'de mantiksal hata nadir gorulur; istatistik
+  # icin train setini buyuk tutmak gerekir. TRUBA'da bu degerleri
+  # 5-10x buyuterek daha guvenilir sonuc alabilirsiniz.
+  num_train: 200000
+  num_val: 40000
+  num_test: 100000
+
+# --------------------------- MODEL -----------------------------------
+model:
+  # "mlp"  -> tam bagli ag (basit, hizli, guclu temel)
+  # "conv" -> sendrom vektorunu 1B dizi gibi isleyen CNN
+  type: "mlp"
+  hidden_dims: [512, 512, 256]     # mlp icin gizli katman genislikleri
+  dropout: 0.1                     # asiri ogrenmeyi (overfitting) azaltir
+  conv_channels: [64, 128, 128]    # conv modeli icin kanal sayilari
+
+# --------------------------- EGITIM ----------------------------------
+train:
+  epochs: 40
+  batch_size: 1024
+  lr: 0.001
+  weight_decay: 0.00001
+  # Erken durdurma: val kaybi `patience` epoch boyunca iyilesmezse dur.
+  # Hem asiri ogrenmeyi engeller hem TRUBA'da bos GPU saati harcamaz.
+  patience: 8
+  # Sinif dengesizligi: dusuk p'de etiketlerin cogu 0. pos_weight ile
+  # nadir "1" sinifina daha cok agirlik veririz. "auto" => otomatik hesap.
+  pos_weight: "auto"
+  num_workers: 4                   # DataLoader paralel okuma is parcacigi
+  seed: 42
+
+# ------------------------ DEGERLENDIRME ------------------------------
+eval:
+  # Karsilastirma referansi olarak MWPM (minimum weight perfect matching)
+  # decoder'ini da calistir. QEC'de altin standart klasik decoder budur.
+  run_mwpm_baseline: true
+  results_dir: "results"

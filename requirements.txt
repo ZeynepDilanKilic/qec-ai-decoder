@@ -1,0 +1,15 @@
+# Core QEC stack
+stim>=1.13
+pymatching>=2.1
+
+# Scientific Python
+numpy>=1.24
+pyyaml>=6.0
+matplotlib>=3.7
+
+# PyTorch is intentionally NOT pinned here:
+#   - locally, install the build matching your CUDA/CPU setup:
+#       https://pytorch.org/get-started/locally/
+#   - on TRUBA, torch comes from the centrally provided module
+#     (see slurm/setup_env.sh); do not pip-install it over the module.
+# torch>=2.1
